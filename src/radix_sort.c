@@ -6,7 +6,7 @@
 /*   By: mel-hajj <mel-hajj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:01:45 by mel-hajj          #+#    #+#             */
-/*   Updated: 2025/04/08 08:15:03 by mel-hajj         ###   ########.fr       */
+/*   Updated: 2025/04/08 08:41:07 by mel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_max_bits(t_stack *a)
 {
-	t_node	*current;
+	t_list	*current;
 	int		max;
 	int		bits;
 
@@ -22,14 +22,14 @@ int	get_max_bits(t_stack *a)
 	current = a->top;
 	while (current)
 	{
-		if (current->value > max)
-			max = current->value; // Find largest number
+		if (*(int *)(current->content) > max)
+			max = *(int *)(current->content); // Find max
 		current = current->next;
 	}
 	bits = 0;
 	while (max)
 	{
-		max >>= 1; // Count bits by shifting
+		max >>= 1; // Count bits
 		bits++;
 	}
 	return (bits);
@@ -46,18 +46,18 @@ void	radix_sort(t_stack *a, t_stack *b)
 	i = 0;
 	while (i < max_bits)
 	{
-		size = a->size; // Number of elements to process
+		size = ft_lstsize(a->top); // Get current size
 		j = 0;
 		while (j < size)
 		{
-			if (((a->top->value >> i) & 1) == 0)
-				pb(a, b); // Bit 0 goes to b
+			if ((*(int *)(a->top->content) >> i & 1) == 0)
+				pb(a, b); // Bit 0 to b
 			else
-				ra(a); // Bit 1 stays in a, rotated
+				ra(a); // Bit 1 rotate
 			j++;
 		}
-		while (b->size > 0)
-			pa(a, b); // Merge b back to a
+		while (b->top)
+			pa(a, b); // Merge back
 		i++;
 	}
 }

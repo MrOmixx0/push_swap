@@ -6,7 +6,7 @@
 /*   By: mel-hajj <mel-hajj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:52:20 by mel-hajj          #+#    #+#             */
-/*   Updated: 2025/04/08 08:01:08 by mel-hajj         ###   ########.fr       */
+/*   Updated: 2025/04/08 08:37:58 by mel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,12 @@
 
 # include "stdlib.h"
 # include "unistd.h"
-
-typedef struct s_node
-{
-	int				value;
-	struct s_node	*next;
-}					t_node;
+# include "libft.h"
 
 typedef struct s_stack
 {
-	t_node			*top;
-	int				size;
-}					t_stack;
+	t_list	*top;
+}	t_stack;
 
 void				init_stack(t_stack *stack);
 void				push(t_stack *stack, int value);

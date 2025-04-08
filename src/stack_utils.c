@@ -6,7 +6,7 @@
 /*   By: mel-hajj <mel-hajj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:59:38 by mel-hajj          #+#    #+#             */
-/*   Updated: 2025/04/08 08:14:41 by mel-hajj         ###   ########.fr       */
+/*   Updated: 2025/04/08 08:40:02 by mel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,37 @@
 
 void	init_stack(t_stack *stack)
 {
-	stack->top = NULL; // No nodes yet
-	stack->size = 0;
+	stack->top = NULL; // Empty stack
 }
 
 void	push(t_stack *stack, int value)
 {
-	t_node	*new_node;
+	int		*content;
+	t_list	*new_node;
 
-	new_node = malloc(sizeof(t_node));
-	if (!new_node)
+	content = malloc(sizeof(int));
+	if (!content)
 		handle_error();
-	new_node->value = value;
-	new_node->next = stack->top; // Link to old top
-	stack->top = new_node;       // New top
-	stack->size++;
+	*content = value;
+	new_node = ft_lstnew(content); // Create new node
+	if (!new_node)
+	{
+		free(content);
+		handle_error();
+	}
+	ft_lstadd_front(&stack->top, new_node); // Add to top
 }
 
 int	pop(t_stack *stack)
 {
-	t_node	*temp;
+	t_list	*temp;
 	int		value;
 
 	if (!stack->top)
 		handle_error();
 	temp = stack->top;
-	value = temp->value;
-	stack->top = temp->next; // Move top to next node
-	free(temp);
-	stack->size--;
+	value = *(int *)(temp->content); // Get value
+	stack->top = temp->next;         // Move top
+	ft_lstdelone(temp, free);        // Free node and content
 	return (value);
 }
