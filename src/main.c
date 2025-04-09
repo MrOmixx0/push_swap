@@ -12,32 +12,24 @@
 
 #include "push_swap.h"
 
-static void	parse_args(t_stack *a, int argc, char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (i < argc)
-	{
-		push(a, atoi(argv[i])); // Add error checks later
-		i++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_stack	a;
 	t_stack	b;
+	int		min_val;
 
 	init_stack(&a);
 	init_stack(&b);
 	if (argc < 2)
 		return (0);
-	parse_args(&a, argc, argv);
+	min_val = parse_args(&a, argc, argv, &min_val);
 	if (is_sorted(&a))
+	{
+		ft_lstclear(&a.top, free);
 		return (0);
-	radix_sort(&a, &b);
-	ft_lstclear(&a.top, free); // Clean up
+	}
+	radix_sort(&a, &b, min_val);
+	ft_lstclear(&a.top, free);
 	ft_lstclear(&b.top, free);
 	return (0);
 }

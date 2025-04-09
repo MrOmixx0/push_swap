@@ -14,7 +14,7 @@
 
 void	init_stack(t_stack *stack)
 {
-	stack->top = NULL; // Empty stack
+	stack->top = NULL;
 }
 
 void	push(t_stack *stack, int value)
@@ -26,13 +26,13 @@ void	push(t_stack *stack, int value)
 	if (!content)
 		handle_error();
 	*content = value;
-	new_node = ft_lstnew(content); // Create new node
+	new_node = ft_lstnew(content);
 	if (!new_node)
 	{
 		free(content);
 		handle_error();
 	}
-	ft_lstadd_front(&stack->top, new_node); // Add to top
+	ft_lstadd_front(&stack->top, new_node);
 }
 
 int	pop(t_stack *stack)
@@ -43,8 +43,8 @@ int	pop(t_stack *stack)
 	if (!stack->top)
 		handle_error();
 	temp = stack->top;
-	value = *(int *)(temp->content); // Get value
-	stack->top = temp->next;         // Move top
-	ft_lstdelone(temp, free);        // Free node and content
+	value = *(int *)(temp->content);
+	stack->top = temp->next;
+	ft_lstdelone(temp, free);
 	return (value);
 }

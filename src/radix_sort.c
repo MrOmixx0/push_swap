@@ -23,41 +23,41 @@ int	get_max_bits(t_stack *a)
 	while (current)
 	{
 		if (*(int *)(current->content) > max)
-			max = *(int *)(current->content); // Find max
+			max = *(int *)(current->content);
 		current = current->next;
 	}
 	bits = 0;
 	while (max)
 	{
-		max >>= 1; // Count bits
+		max >>= 1;
 		bits++;
 	}
 	return (bits);
 }
 
-void	radix_sort(t_stack *a, t_stack *b)
+void	radix_sort(t_stack *a, t_stack *b, int min_val)
 {
-	int	max_bits;
-	int	i;
-	int	j;
-	int	size;
+	int max_bits;
+	int i;
+	int j;
+	int size;
 
 	max_bits = get_max_bits(a);
 	i = 0;
 	while (i < max_bits)
 	{
-		size = ft_lstsize(a->top); // Get current size
+		size = ft_lstsize(a->top);
 		j = 0;
 		while (j < size)
 		{
-			if ((*(int *)(a->top->content) >> i & 1) == 0)
-				pb(a, b); // Bit 0 to b
+			if ((((*(int *)(a->top->content) - min_val) >> i) & 1) == 0)
+				pb(a, b);
 			else
-				ra(a); // Bit 1 rotate
+				ra(a);
 			j++;
 		}
 		while (b->top)
-			pa(a, b); // Merge back
+			pa(a, b);
 		i++;
 	}
 }
