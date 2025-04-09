@@ -48,30 +48,56 @@ static int	is_duplicate(t_stack *a, int value)
 	}
 	return (0);
 }
+int	is_valid_number(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	parse_args(t_stack *a, int argc, char **argv, int *min_val)
 {
-	int i;
-	int place;
-	long num;
-	char *endptr;
+	int		i;
+	long	num;
+	t_list	*node;
+	int		*content;
 
 	*min_val = INT_MAX;
 	i = 1;
 	while (i < argc)
 	{
-		place = argc - i;
-		num = strtol(argv[place], &endptr, 10);
-		if (*endptr != '\0' || num < INT_MIN || num > INT_MAX)
+		if (!is_valid_number(argv[i]))
+			handle_error();
+		num = (long)ft_atoi(argv[i]);
+		if (num < INT_MIN || num > INT_MAX)
 			handle_error();
 		if (is_duplicate(a, (int)num))
 			handle_error();
-		push(a, (int)num);
-		if ((int)num < *min_val)
-			*min_val = (int)num;
+		content = malloc(sizeof(int));
+		if (!content)
+			handle_error();
+		*content = (int)num;
+		node = ft_lstnew(content);
+		if (!node)
+		{
+			free(content);
+			handle_error();
+		}
+		ft_lstadd_back(&a->top, node);
+		if (*content < *min_val)
+			*min_val = *content;
 		i++;
-		if (place == 1)
-			break ;
 	}
 	return (*min_val);
 }
