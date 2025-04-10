@@ -12,24 +12,33 @@
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_stack	a;
-	t_stack	b;
-	int		min_val;
+    t_stack a;
+    t_stack b;
+    int     min_val;
+    int     size;
 
-	init_stack(&a);
-	init_stack(&b);
-	if (argc < 2)
-		return (0);
-	min_val = parse_args(&a, argc, argv, &min_val);
-	if (is_sorted(&a))
-	{
-		ft_lstclear(&a.top, free);
-		return (0);
-	}
-	radix_sort(&a, &b, min_val);
-	ft_lstclear(&a.top, free);
-	ft_lstclear(&b.top, free);
-	return (0);
+    init_stack(&a);
+    init_stack(&b);
+    if (argc < 2)
+        return (0);
+    min_val = parse_args(&a, argc, argv, &min_val);
+    size = ft_lstsize(a.top);
+    if (is_sorted(&a))
+    {
+        ft_lstclear(&a.top, free);
+        return (0);
+    }
+    if (size == 2)
+        sort_two(&a);
+    else if (size == 3)
+        sort_three(&a);
+    else if (size <= 5)
+        sort_five(&a, &b);
+    else
+        radix_sort(&a, &b, min_val);
+    ft_lstclear(&a.top, free);
+    ft_lstclear(&b.top, free);
+    return (0);
 }

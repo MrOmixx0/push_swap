@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <limits.h>
 
 void	handle_error(void)
 {
@@ -79,7 +78,7 @@ int	parse_args(t_stack *a, int argc, char **argv, int *min_val)
 	{
 		if (!is_valid_number(argv[i]))
 			handle_error();
-		num = (long)ft_atoi(argv[i]);
+		num = ft_atol(argv[i]);
 		if (num < INT_MIN || num > INT_MAX)
 			handle_error();
 		if (is_duplicate(a, (int)num))

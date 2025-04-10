@@ -17,6 +17,7 @@
 # include "unistd.h"
 # include "libft.h"
 # include "ft_printf.h"
+# include "limits.h"
 
 typedef struct s_stack
 {
@@ -34,8 +35,12 @@ void    rra(t_stack *a);
 void    radix_sort(t_stack *a, t_stack *b, int min_val);
 int     is_sorted(t_stack *a);
 void    handle_error(void);
-int     get_max_bits(t_stack *a);
+int     get_max_bits(t_stack *a, int min_val);
 int		is_valid_number(const char *str);
 int     parse_args(t_stack *a, int argc, char **argv, int *min_val);
+long	ft_atol(char *nptr);
+void    sort_two(t_stack *a);
+void    sort_three(t_stack *a);
+void    sort_five(t_stack *a, t_stack *b);
 
 #endif
