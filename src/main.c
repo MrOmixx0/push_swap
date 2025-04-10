@@ -101,8 +101,8 @@ int main(int argc, char **argv)
         sort_two(&a);
     else if (ft_lstsize(a.top) <= 3)
         sort_three(&a);
-    else if (ft_lstsize(a.top) <= 5)
-        sort_five(&a, &b);
+    else if (ft_lstsize(a.top) <= 20)
+        sort_medium(&a, &b);
     else
         radix_sort(&a, &b);
     ft_lstclear(&a.top, free);

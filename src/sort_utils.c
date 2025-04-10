@@ -41,31 +41,3 @@ void sort_three(t_stack *a)
     else if (first < second && second > third) // 2 3 1
         rra(a);
 }
-
-void sort_five(t_stack *a, t_stack *b)
-{
-    while (ft_lstsize(a->top) > 3)
-    {
-        int min = *(int *)(a->top->content);
-        t_list *tmp = a->top;
-        while (tmp) // Find min
-        {
-            if (*(int *)(tmp->content) < min)
-                min = *(int *)(tmp->content);
-            tmp = tmp->next;
-        }
-        while (*(int *)(a->top->content) != min)
-        {
-            if (min == *(int *)(ft_lstlast(a->top)->content))
-                rra(a);
-            else
-                ra(a);
-        }
-        pb(a, b);
-    }
-    sort_three(a);
-    if (b->top && b->top->next && *(int *)(b->top->content) < *(int *)(b->top->next->content))
-        sa(b);
-    while (b->top)
-        pa(a, b);
-}

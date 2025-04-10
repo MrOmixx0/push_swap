@@ -16,7 +16,7 @@ OBJ_PATH =	obj
 
 LIB_NAME =	libft.a
 
-SRC_NAME =	main.c stack_utils.c operations.c radix_sort.c utils.c utils2.c sort_utils.c ranking.c
+SRC_NAME =	main.c stack_utils.c operations.c radix_sort.c utils.c utils2.c sort_utils.c ranking.c operation_2.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

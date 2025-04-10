@@ -31,6 +31,8 @@ void    sa(t_stack *a);
 void    pb(t_stack *a, t_stack *b);
 void    pa(t_stack *a, t_stack *b);
 void    ra(t_stack *a);
+void	rb(t_stack *b);
+void	rrb(t_stack *b);
 void    rra(t_stack *a);
 void    radix_sort(t_stack *a, t_stack *b); // Removed min_val parameter
 int     is_sorted(t_stack *a);
@@ -41,8 +43,8 @@ int     parse_args(t_stack *a, char **args, int *min_val);
 long    ft_atol(char *nptr);
 void    sort_two(t_stack *a);
 void    sort_three(t_stack *a);
-void    sort_five(t_stack *a, t_stack *b);
 void    free_split(char **split);
 void    normalize_stack(t_stack *stack);
+void	sort_medium(t_stack *a, t_stack *b);
 
 #endif
