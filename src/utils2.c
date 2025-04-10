@@ -33,6 +33,8 @@ long	ft_atol(char *nptr)
 	{
 		results = results * 10 + (nptr[i] - 48);
 		i++;
+		if (results * sign > INT_MAX || results * sign < INT_MIN)
+			break ;
 	}
 	return (results * sign);
 }

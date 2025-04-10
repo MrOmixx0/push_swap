@@ -12,18 +12,69 @@
 
 #include "push_swap.h"
 
+static void free_split(char **split)
+{
+    int i = 0;
+    while (split[i])
+        free(split[i++]);
+    free(split);
+}
+
+static char *join_args(int argc, char **argv)
+{
+    char *joined = NULL;
+    char *temp;
+    int i = 1;
+
+    if (argc < 2)
+        return (NULL);
+    joined = ft_strdup(argv[i]); // Start with first arg
+    if (!joined)
+        handle_error();
+    i++;
+    while (i < argc)
+    {
+        temp = joined;
+        joined = ft_strjoin(temp, " "); // Add space
+        free(temp);
+        if (!joined)
+            handle_error();
+        temp = joined;
+        joined = ft_strjoin(temp, argv[i]); // Add next arg
+        free(temp);
+        if (!joined)
+            handle_error();
+        i++;
+    }
+    return (joined);
+}
+
 int main(int argc, char **argv)
 {
     t_stack a;
     t_stack b;
     int     min_val;
     int     size;
+    char    *joined;
+    char    **args;
 
     init_stack(&a);
     init_stack(&b);
     if (argc < 2)
         return (0);
-    min_val = parse_args(&a, argc, argv, &min_val);
+    joined = join_args(argc, argv);
+    if (!joined)
+        return (0);
+    args = ft_split(joined, ' ');
+    free(joined);
+    if (!args || !args[0]) // Empty or failed split
+    {
+        if (args)
+            free_split(args);
+        return (0);
+    }
+    min_val = parse_args(&a, args, &min_val);
+    free_split(args);
     size = ft_lstsize(a.top);
     if (is_sorted(&a))
     {

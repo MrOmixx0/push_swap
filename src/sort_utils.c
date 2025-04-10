@@ -44,24 +44,28 @@ void sort_three(t_stack *a)
 
 void sort_five(t_stack *a, t_stack *b)
 {
-    int size;
-    int min;
-
     while (ft_lstsize(a->top) > 3)
     {
-        min = *(int *)(a->top->content);
-        size = ft_lstsize(a->top);
-        while (size--)
+        int min = *(int *)(a->top->content);
+        t_list *tmp = a->top;
+        while (tmp) // Find min
         {
-            if (*(int *)(a->top->content) < min)
-                min = *(int *)(a->top->content);
-            ra(a);
+            if (*(int *)(tmp->content) < min)
+                min = *(int *)(tmp->content);
+            tmp = tmp->next;
         }
         while (*(int *)(a->top->content) != min)
-            ra(a);
+        {
+            if (min == *(int *)(ft_lstlast(a->top)->content))
+                rra(a);
+            else
+                ra(a);
+        }
         pb(a, b);
     }
     sort_three(a);
+    if (b->top && b->top->next && *(int *)(b->top->content) < *(int *)(b->top->next->content))
+        sa(b);
     while (b->top)
         pa(a, b);
 }
