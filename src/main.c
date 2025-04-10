@@ -12,14 +12,6 @@
 
 #include "push_swap.h"
 
-static void free_split(char **split)
-{
-    int i = 0;
-    while (split[i])
-        free(split[i++]);
-    free(split);
-}
-
 static char *join_args(int argc, char **argv)
 {
     char *joined = NULL;
@@ -28,23 +20,37 @@ static char *join_args(int argc, char **argv)
 
     if (argc < 2)
         return (NULL);
-    joined = ft_strdup(argv[i]); // Start with first arg
+    joined = ft_strdup("");
     if (!joined)
-        handle_error();
-    i++;
+        return (NULL);
     while (i < argc)
     {
         temp = joined;
-        joined = ft_strjoin(temp, " "); // Add space
+        if (i > 1)
+        {
+            joined = ft_strjoin(temp, " ");
+            free(temp);
+            if (!joined)
+                return (NULL);
+            temp = joined;
+        }
+        joined = ft_strjoin(temp, argv[i]);
         free(temp);
         if (!joined)
-            handle_error();
-        temp = joined;
-        joined = ft_strjoin(temp, argv[i]); // Add next arg
-        free(temp);
-        if (!joined)
-            handle_error();
+            return (NULL);
         i++;
+    }
+    i = 0;
+    while (joined[i])
+    {
+        if (joined[i] != ' ')
+            break;
+        i++;
+    }
+    if (!joined[i])
+    {
+        free(joined);
+        return (NULL);
     }
     return (joined);
 }
@@ -55,8 +61,8 @@ int main(int argc, char **argv)
     t_stack b;
     int     min_val;
     int     size;
-    char    *joined;
-    char    **args;
+    char    *joined = NULL;
+    char    **args = NULL;
 
     init_stack(&a);
     init_stack(&b);
@@ -64,16 +70,28 @@ int main(int argc, char **argv)
         return (0);
     joined = join_args(argc, argv);
     if (!joined)
-        return (0);
+    {
+        ft_lstclear(&a.top, free);
+        ft_lstclear(&b.top, free);
+        handle_error();
+    }
     args = ft_split(joined, ' ');
     free(joined);
-    if (!args || !args[0]) // Empty or failed split
+    if (!args || !args[0])
     {
         if (args)
             free_split(args);
-        return (0);
+        ft_lstclear(&a.top, free);
+        ft_lstclear(&b.top, free);
+        handle_error();
     }
-    min_val = parse_args(&a, args, &min_val);
+    if (parse_args(&a, args, &min_val) < 0)
+    {
+        free_split(args);
+        ft_lstclear(&a.top, free);
+        ft_lstclear(&b.top, free);
+        handle_error();
+    }
     free_split(args);
     size = ft_lstsize(a.top);
     if (is_sorted(&a))

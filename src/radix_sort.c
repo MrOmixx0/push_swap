@@ -12,17 +12,16 @@
 
 #include "push_swap.h"
 
-int get_max_bits(t_stack *a, int min_val) // Add min_val parameter
+int get_max_bits(t_stack *a, int min_val)
 {
     t_list  *current;
-    long     max;
+    long    max = 0;
     int     bits;
 
-    max = 0;
     current = a->top;
     while (current)
     {
-        long normalized = (long)*(int *)(current->content) - min_val; // Normalize
+        long normalized = (long)(*(int *)(current->content)) - min_val;
         if (normalized > max)
             max = normalized;
         current = current->next;
@@ -36,14 +35,14 @@ int get_max_bits(t_stack *a, int min_val) // Add min_val parameter
     return (bits);
 }
 
-void    radix_sort(t_stack *a, t_stack *b, int min_val)
+void radix_sort(t_stack *a, t_stack *b, int min_val)
 {
     int max_bits;
     int i;
     int j;
     int size;
 
-    max_bits = get_max_bits(a, min_val); // Pass min_val
+    max_bits = get_max_bits(a, min_val);
     i = 0;
     while (i < max_bits)
     {
@@ -51,7 +50,7 @@ void    radix_sort(t_stack *a, t_stack *b, int min_val)
         j = 0;
         while (j < size)
         {
-            if (((((long)*(int *)(a->top->content) - min_val) >> i) & 1) == 0)
+            if (((((long)(*(int *)(a->top->content)) - min_val) >> i) & 1) == 0)
                 pb(a, b);
             else
                 ra(a);
