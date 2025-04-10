@@ -6,24 +6,24 @@
 /*   By: mel-hajj <mel-hajj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:01:45 by mel-hajj          #+#    #+#             */
-/*   Updated: 2025/04/08 08:41:07 by mel-hajj         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:05:00 by mel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int get_max_bits(t_stack *a, int min_val)
+int get_max_bits(t_stack *a)
 {
     t_list  *current;
-    long    max = 0;
+    int     max = 0;
     int     bits;
 
     current = a->top;
     while (current)
     {
-        long normalized = (long)(*(int *)(current->content)) - min_val;
-        if (normalized > max)
-            max = normalized;
+        int value = *(int *)(current->content);
+        if (value > max)
+            max = value;
         current = current->next;
     }
     bits = 0;
@@ -35,14 +35,18 @@ int get_max_bits(t_stack *a, int min_val)
     return (bits);
 }
 
-void radix_sort(t_stack *a, t_stack *b, int min_val)
+void radix_sort(t_stack *a, t_stack *b)
 {
     int max_bits;
     int i;
     int j;
     int size;
 
-    max_bits = get_max_bits(a, min_val);
+    // Normalize the stack first - this replaces each value with its rank
+    normalize_stack(a);
+    
+    // Get the maximum number of bits needed
+    max_bits = get_max_bits(a);
     i = 0;
     while (i < max_bits)
     {
@@ -50,7 +54,7 @@ void radix_sort(t_stack *a, t_stack *b, int min_val)
         j = 0;
         while (j < size)
         {
-            if (((((long)(*(int *)(a->top->content)) - min_val) >> i) & 1) == 0)
+            if ((((*(int *)(a->top->content)) >> i) & 1) == 0)
                 pb(a, b);
             else
                 ra(a);

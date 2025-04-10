@@ -6,7 +6,7 @@
 /*   By: mel-hajj <mel-hajj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:52:20 by mel-hajj          #+#    #+#             */
-/*   Updated: 2025/04/08 08:37:58 by mel-hajj         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:05:00 by mel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void    pb(t_stack *a, t_stack *b);
 void    pa(t_stack *a, t_stack *b);
 void    ra(t_stack *a);
 void    rra(t_stack *a);
-void    radix_sort(t_stack *a, t_stack *b, int min_val);
+void    radix_sort(t_stack *a, t_stack *b); // Removed min_val parameter
 int     is_sorted(t_stack *a);
 void    handle_error(void);
-int     get_max_bits(t_stack *a, int min_val);
+int     get_max_bits(t_stack *a); // Removed min_val parameter
 int     is_valid_number(const char *str);
 int     parse_args(t_stack *a, char **args, int *min_val);
 long    ft_atol(char *nptr);
@@ -43,5 +43,6 @@ void    sort_two(t_stack *a);
 void    sort_three(t_stack *a);
 void    sort_five(t_stack *a, t_stack *b);
 void    free_split(char **split);
+void    normalize_stack(t_stack *stack);
 
 #endif

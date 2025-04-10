@@ -60,7 +60,6 @@ int main(int argc, char **argv)
     t_stack a;
     t_stack b;
     int     min_val;
-    int     size;
     char    *joined = NULL;
     char    **args = NULL;
 
@@ -93,20 +92,19 @@ int main(int argc, char **argv)
         handle_error();
     }
     free_split(args);
-    size = ft_lstsize(a.top);
     if (is_sorted(&a))
     {
         ft_lstclear(&a.top, free);
         return (0);
     }
-    if (size == 2)
+    if (ft_lstsize(a.top) <= 2)
         sort_two(&a);
-    else if (size == 3)
+    else if (ft_lstsize(a.top) <= 3)
         sort_three(&a);
-    else if (size <= 5)
+    else if (ft_lstsize(a.top) <= 5)
         sort_five(&a, &b);
     else
-        radix_sort(&a, &b, min_val);
+        radix_sort(&a, &b);
     ft_lstclear(&a.top, free);
     ft_lstclear(&b.top, free);
     return (0);
