@@ -12,6 +12,16 @@
 
 #include "push_swap.h"
 
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+
 int	get_max_bits(t_stack *a)
 {
 	t_list	*current;

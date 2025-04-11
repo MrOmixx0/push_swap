@@ -73,16 +73,13 @@ void	move_min_to_top(t_stack *a)
 
 	min_pos = find_min_position(a);
 	size = ft_lstsize(a->top);
-	// Choose the most efficient rotation direction
 	if (min_pos <= size / 2)
 	{
-		// Rotate forward
 		while (min_pos-- > 0)
 			ra(a);
 	}
 	else
 	{
-		// Rotate backward
 		while (min_pos++ < size)
 			rra(a);
 	}
@@ -132,67 +129,5 @@ void	move_max_to_top_b(t_stack *b)
 	{
 		while (max_pos++ < size)
 			rrb(b);
-	}
-}
-
-//Sort a medium-sized stack (4-20 elements)
-void	sort_medium(t_stack *a, t_stack *b)
-{
-	int size;
-	int pushed_count;
-
-	size = ft_lstsize(a->top);
-
-	// For stacks with 4-5 elements
-	if (size <= 5)
-	{
-		// Push elements to stack B until 3 remain in A
-		pushed_count = 0;
-		while (ft_lstsize(a->top) > 3)
-		{
-			move_min_to_top(a);
-			pb(a, b);
-			pushed_count++;
-		}
-
-		// Sort the remaining 3 elements
-		sort_three(a);
-
-		// Push elements back to A
-		while (pushed_count--)
-			pa(a, b);
-
-		return ;
-	}
-
-	// For larger stacks (6-20), use a chunking approach
-	normalize_stack(a);
-
-	// Determine how many elements to keep in stack A
-	int keep_count = 3;
-	int chunk_size = (size - keep_count) / 2;
-
-	// First pass: push smaller half to B
-	while (ft_lstsize(a->top) > keep_count)
-	{
-		if (*(int *)(a->top->content) < (size - keep_count) / 2)
-		{
-			pb(a, b);
-			// Organize B: rotate smaller elements down
-			if (b->top->next && *(int *)(b->top->content) < chunk_size / 2)
-				rb(b);
-		}
-		else
-			ra(a);
-	}
-
-	// Sort the remaining elements in A
-	sort_three(a);
-
-	// Push elements from B back to A in descending order
-	while (b->top)
-	{
-		move_max_to_top_b(b);
-		pa(a, b);
 	}
 }

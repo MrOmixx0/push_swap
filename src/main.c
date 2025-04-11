@@ -18,27 +18,23 @@ static char	*join_args(int argc, char **argv)
 	char	*temp;
 	int		i;
 
-	joined = ft_strdup("");
 	if (argc < 2)
 		return (NULL);
+	joined = ft_strdup(argv[1]);
 	if (!joined)
 		return (NULL);
-	i = 1;
+	i = 2;
 	while (i < argc)
 	{
 		temp = joined;
-		if (i > 1)
-		{
-			joined = ft_strjoin(temp, " ");
-			free(temp);
-			if (!joined)
-				return (NULL);
-			temp = joined;
-		}
-		joined = ft_strjoin(temp, argv[i]);
-		free(temp);
+		joined = ft_strjoin(temp, " ");
 		if (!joined)
-			return (NULL);
+			return (free(temp), NULL);
+		temp = joined;
+		joined = ft_strjoin(temp, argv[i]);
+		if (!joined)
+			return (free(temp), NULL);
+		free(temp);
 		i++;
 	}
 	return (joined);
@@ -66,12 +62,22 @@ static void	dispatch_sort(t_stack *a, t_stack *b)
 	ft_lstclear(&b->top, free);
 }
 
+void	handle_cleanup(t_stack *a, t_stack *b, char **args,
+		void (*free_func)(char **))
+{
+	if (args && free_func)
+		free_func(args);
+	ft_lstclear(&a->top, free);
+	ft_lstclear(&b->top, free);
+	handle_error();
+}
+
 int	main(int argc, char **argv)
 {
-	t_stack a;
-	t_stack b;
-	char *joined;
-	char **args;
+	t_stack	a;
+	t_stack	b;
+	char	*joined;
+	char	**args;
 
 	init_stack(&a);
 	init_stack(&b);
@@ -79,33 +85,11 @@ int	main(int argc, char **argv)
 		return (0);
 	joined = join_args(argc, argv);
 	if (!joined)
-	{
-		ft_lstclear(&a.top, free);
-		ft_lstclear(&b.top, free);
-		handle_error();
-	}
+		handle_cleanup(&a, &b, NULL, NULL);
 	args = ft_split(joined, ' ');
 	free(joined);
-	if (!args)
-	{
-		ft_lstclear(&a.top, free);
-		ft_lstclear(&b.top, free);
-		handle_error();
-	}
-	if (!args[0])
-	{
-		free_split(args);
-		ft_lstclear(&a.top, free);
-		ft_lstclear(&b.top, free);
-		handle_error();
-	}
-	if (parse_args(&a, args, &(int){INT_MAX}) < 0)
-	{
-		free_split(args);
-		ft_lstclear(&a.top, free);
-		ft_lstclear(&b.top, free);
-		handle_error();
-	}
+	if (!args || !args[0] || parse_args(&a, args) < 0)
+		handle_cleanup(&a, &b, args, free_split);
 	free_split(args);
 	dispatch_sort(&a, &b);
 	return (0);

@@ -12,16 +12,6 @@
 
 #include "push_swap.h"
 
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split);
-}
-
 void	handle_error(void)
 {
 	write(2, "Error\n", 6);
@@ -76,23 +66,20 @@ int	is_valid_number(const char *str)
 	return (1);
 }
 
-int	parse_args(t_stack *a, char **args, int *min_val)
+int	parse_args(t_stack *a, char **args)
 {
-	int i;
-	long num;
-	t_list *node;
-	int *content;
+	int		i;
+	long	num;
+	t_list	*node;
+	int		*content;
 
-	*min_val = INT_MAX;
 	i = 0;
 	while (args[i])
 	{
 		if (!is_valid_number(args[i]))
 			return (-1);
 		num = ft_atol(args[i]);
-		if (num < INT_MIN || num > INT_MAX)
-			return (-1);
-		if (is_duplicate(a, (int)num))
+		if (num < INT_MIN || num > INT_MAX || is_duplicate(a, (int)num))
 			return (-1);
 		content = malloc(sizeof(int));
 		if (!content)
@@ -102,8 +89,6 @@ int	parse_args(t_stack *a, char **args, int *min_val)
 		if (!node)
 			return (free(content), -1);
 		ft_lstadd_back(&a->top, node);
-		if (*content < *min_val)
-			*min_val = *content;
 		i++;
 	}
 	return (0);
