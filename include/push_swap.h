@@ -3,48 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-hajj <mel-hajj@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: omix <omix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:52:20 by mel-hajj          #+#    #+#             */
-/*   Updated: 2025/04/10 14:05:00 by mel-hajj         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:40:14 by omix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include "ft_printf.h"
+# include "libft.h"
+# include "limits.h"
 # include "stdlib.h"
 # include "unistd.h"
-# include "libft.h"
-# include "ft_printf.h"
-# include "limits.h"
 
 typedef struct s_stack
 {
-    t_list  *top;
-}   t_stack;
+	t_list	*top;
+}			t_stack;
 
-void    init_stack(t_stack *stack);
-int     push(t_stack *stack, int value);
-int     pop(t_stack *stack);
-void    sa(t_stack *a);
-void    pb(t_stack *a, t_stack *b);
-void    pa(t_stack *a, t_stack *b);
-void    ra(t_stack *a);
-void	rb(t_stack *b);
-void	rrb(t_stack *b);
-void    rra(t_stack *a);
-void    radix_sort(t_stack *a, t_stack *b); // Removed min_val parameter
-int     is_sorted(t_stack *a);
-void    handle_error(void);
-int     get_max_bits(t_stack *a); // Removed min_val parameter
-int     is_valid_number(const char *str);
-int     parse_args(t_stack *a, char **args, int *min_val);
-long    ft_atol(char *nptr);
-void    sort_two(t_stack *a);
-void    sort_three(t_stack *a);
-void    free_split(char **split);
-void    normalize_stack(t_stack *stack);
-void	sort_medium(t_stack *a, t_stack *b);
+void		init_stack(t_stack *stack);
+int			push(t_stack *stack, int value);
+int			pop(t_stack *stack);
+void		sa(t_stack *a);
+void		pb(t_stack *a, t_stack *b);
+void		pa(t_stack *a, t_stack *b);
+void		ra(t_stack *a);
+void		rb(t_stack *b);
+void		rrb(t_stack *b);
+void		rra(t_stack *a);
+void		radix_sort(t_stack *a, t_stack *b);
+int			is_sorted(t_stack *a);
+void		handle_error(void);
+int			get_max_bits(t_stack *a);
+int			is_valid_number(const char *str);
+int			parse_args(t_stack *a, char **args, int *min_val);
+long		ft_atol(char *nptr);
+void		sort_two(t_stack *a);
+void		sort_three(t_stack *a);
+void		free_split(char **split);
+void		normalize_stack(t_stack *stack);
+void		sort_medium(t_stack *a, t_stack *b);
 
 #endif
