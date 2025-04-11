@@ -12,56 +12,51 @@
 
 #include "push_swap.h"
 
-int get_max_bits(t_stack *a)
+int	get_max_bits(t_stack *a)
 {
-    t_list  *current;
-    int     max = 0;
-    int     bits;
+	t_list	*current;
+	int		max;
+	int		bits;
 
-    current = a->top;
-    while (current)
-    {
-        int value = *(int *)(current->content);
-        if (value > max)
-            max = value;
-        current = current->next;
-    }
-    bits = 0;
-    while (max)
-    {
-        max >>= 1;
-        bits++;
-    }
-    return (bits);
+	current = a->top;
+	max = 0;
+	bits = 0;
+	while (current)
+	{
+		if (*(int *)(current->content) > max)
+			max = *(int *)(current->content);
+		current = current->next;
+	}
+	while (max)
+	{
+		max >>= 1;
+		bits++;
+	}
+	return (bits);
 }
 
-void radix_sort(t_stack *a, t_stack *b)
+void	radix_sort(t_stack *a, t_stack *b)
 {
-    int max_bits;
-    int i;
-    int j;
-    int size;
+	int		max_bits;
+	int		i;
+	int		size;
 
-    // Normalize the stack first - this replaces each value with its rank
-    normalize_stack(a);
-    
-    // Get the maximum number of bits needed
-    max_bits = get_max_bits(a);
-    i = 0;
-    while (i < max_bits)
-    {
-        size = ft_lstsize(a->top);
-        j = 0;
-        while (j < size)
-        {
-            if ((((*(int *)(a->top->content)) >> i) & 1) == 0)
-                pb(a, b);
-            else
-                ra(a);
-            j++;
-        }
-        while (b->top)
-            pa(a, b);
-        i++;
-    }
+	normalize_stack(a);
+	max_bits = get_max_bits(a);
+	i = 0;
+	while (i < max_bits)
+	{
+		size = ft_lstsize(a->top);
+		while (size)
+		{
+			if ((((*(int *)(a->top->content)) >> i) & 1) == 0)
+				pb(a, b);
+			else
+				ra(a);
+			size--;
+		}
+		while (b->top)
+			pa(a, b);
+		i++;
+	}
 }

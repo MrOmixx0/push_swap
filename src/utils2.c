@@ -14,7 +14,7 @@
 
 long	ft_atol(char *nptr)
 {
-	long    i;
+	long	i;
 	long	sign;
 	long	results;
 
@@ -70,10 +70,9 @@ static void	move_min_to_top(t_stack *a)
 {
 	int	min_pos;
 	int	size;
-	
+
 	min_pos = find_min_position(a);
 	size = ft_lstsize(a->top);
-	
 	// Choose the most efficient rotation direction
 	if (min_pos <= size / 2)
 	{
@@ -99,12 +98,10 @@ static int	find_max_position(t_stack *stack)
 
 	if (!stack->top)
 		return (-1);
-
 	curr = stack->top;
 	max_val = *(int *)(curr->content);
 	max_pos = 0;
 	curr_pos = 0;
-
 	while (curr)
 	{
 		if (*(int *)(curr->content) > max_val)
@@ -115,20 +112,17 @@ static int	find_max_position(t_stack *stack)
 		curr_pos++;
 		curr = curr->next;
 	}
-
 	return (max_pos);
 }
-
 
 // Move the maximum element to top of stack B efficiently
 static void	move_max_to_top_b(t_stack *b)
 {
 	int	max_pos;
 	int	size;
-	
+
 	max_pos = find_max_position(b);
 	size = ft_lstsize(b->top);
-	
 	if (max_pos <= size / 2)
 	{
 		while (max_pos-- > 0)
@@ -144,11 +138,11 @@ static void	move_max_to_top_b(t_stack *b)
 // Sort a medium-sized stack (4-20 elements)
 void	sort_medium(t_stack *a, t_stack *b)
 {
-	int	size;
-	int	pushed_count;
-	
+	int size;
+	int pushed_count;
+
 	size = ft_lstsize(a->top);
-	
+
 	// For stacks with 4-5 elements
 	if (size <= 5)
 	{
@@ -160,24 +154,24 @@ void	sort_medium(t_stack *a, t_stack *b)
 			pb(a, b);
 			pushed_count++;
 		}
-		
+
 		// Sort the remaining 3 elements
 		sort_three(a);
-		
+
 		// Push elements back to A
 		while (pushed_count--)
 			pa(a, b);
-			
-		return;
+
+		return ;
 	}
-	
+
 	// For larger stacks (6-20), use a chunking approach
 	normalize_stack(a);
-	
+
 	// Determine how many elements to keep in stack A
-	int	keep_count = 3;
-	int	chunk_size = (size - keep_count) / 2;
-	
+	int keep_count = 3;
+	int chunk_size = (size - keep_count) / 2;
+
 	// First pass: push smaller half to B
 	while (ft_lstsize(a->top) > keep_count)
 	{
@@ -191,10 +185,10 @@ void	sort_medium(t_stack *a, t_stack *b)
 		else
 			ra(a);
 	}
-	
+
 	// Sort the remaining elements in A
 	sort_three(a);
-	
+
 	// Push elements from B back to A in descending order
 	while (b->top)
 	{

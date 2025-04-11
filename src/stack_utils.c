@@ -12,41 +12,41 @@
 
 #include "push_swap.h"
 
-void init_stack(t_stack *stack)
+void	init_stack(t_stack *stack)
 {
-    stack->top = NULL;
+	stack->top = NULL;
 }
 
-int push(t_stack *stack, int value)
+int	push(t_stack *stack, int value)
 {
-    int     *content;
-    t_list  *node;
+	int		*content;
+	t_list	*node;
 
-    content = malloc(sizeof(int));
-    if (!content)
-        return (-1);
-    *content = value;
-    node = ft_lstnew(content);
-    if (!node)
-    {
-        free(content);
-        return (-1);
-    }
-    ft_lstadd_front(&stack->top, node);
-    return (0);
+	content = malloc(sizeof(int));
+	if (!content)
+		return (-1);
+	*content = value;
+	node = ft_lstnew(content);
+	if (!node)
+	{
+		free(content);
+		return (-1);
+	}
+	ft_lstadd_front(&stack->top, node);
+	return (0);
 }
 
-int pop(t_stack *stack)
+int	pop(t_stack *stack)
 {
-    t_list  *temp;
-    int     value;
+	t_list	*temp;
+	int		value;
 
-    if (!stack->top)
-        return (-1);
-    temp = stack->top;
-    value = *(int *)(temp->content);
-    stack->top = temp->next;
-    free(temp->content);
-    free(temp);
-    return (value);
+	if (!stack->top)
+		return (-1);
+	temp = stack->top;
+	value = *(int *)(temp->content);
+	stack->top = temp->next;
+	free(temp->content);
+	free(temp);
+	return (value);
 }

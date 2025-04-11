@@ -57,8 +57,8 @@ void	ra(t_stack *a)
 
 void	rra(t_stack *a)
 {
-	t_list *last;
-	t_list *second_last;
+	t_list	*last;
+	t_list	*second_last;
 
 	if (!a->top || !a->top->next)
 		return ;

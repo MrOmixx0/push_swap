@@ -18,7 +18,7 @@ void	rb(t_stack *b)
 
 	top = b->top;
 	if (!top || !top->next)
-		return;
+		return ;
 	b->top = top->next;
 	ft_lstadd_back(&(b->top), top);
 	top->next = NULL;
@@ -33,7 +33,7 @@ void	rrb(t_stack *b)
 	last = b->top;
 	prev = NULL;
 	if (!last || !last->next)
-		return;
+		return ;
 	while (last->next)
 	{
 		prev = last;
