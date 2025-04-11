@@ -12,6 +12,16 @@
 
 #include "push_swap.h"
 
+void	handle_cleanup(t_stack *a, t_stack *b, char **args,
+		void (*free_func)(char **))
+{
+	if (args && free_func)
+		free_func(args);
+	ft_lstclear(&a->top, free);
+	ft_lstclear(&b->top, free);
+	handle_error();
+}
+
 static char	*join_args(int argc, char **argv)
 {
 	char	*joined;
@@ -28,13 +38,14 @@ static char	*join_args(int argc, char **argv)
 	{
 		temp = joined;
 		joined = ft_strjoin(temp, " ");
+		free(temp);
 		if (!joined)
-			return (free(temp), NULL);
+			return (NULL);
 		temp = joined;
 		joined = ft_strjoin(temp, argv[i]);
-		if (!joined)
-			return (free(temp), NULL);
 		free(temp);
+		if (!joined)
+			return (NULL);
 		i++;
 	}
 	return (joined);
@@ -60,16 +71,6 @@ static void	dispatch_sort(t_stack *a, t_stack *b)
 		radix_sort(a, b);
 	ft_lstclear(&a->top, free);
 	ft_lstclear(&b->top, free);
-}
-
-void	handle_cleanup(t_stack *a, t_stack *b, char **args,
-		void (*free_func)(char **))
-{
-	if (args && free_func)
-		free_func(args);
-	ft_lstclear(&a->top, free);
-	ft_lstclear(&b->top, free);
-	handle_error();
 }
 
 int	main(int argc, char **argv)
