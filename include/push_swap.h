@@ -46,5 +46,10 @@ void		sort_three(t_stack *a);
 void		free_split(char **split);
 void		normalize_stack(t_stack *stack);
 void		sort_medium(t_stack *a, t_stack *b);
+void		move_max_to_top_b(t_stack *b);
+int			find_max_position(t_stack *stack);
+void		move_min_to_top(t_stack *a);
+int			find_min_position(t_stack *a);
+void		sort_five(t_stack *a, t_stack *b);
 
 #endif

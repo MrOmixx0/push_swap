@@ -44,3 +44,19 @@ void	sort_three(t_stack *a)
 	else if (first < second && second > third)
 		rra(a);
 }
+
+void	sort_five(t_stack *a, t_stack *b)
+{
+	int	pushed;
+
+	pushed = 0;
+	while (ft_lstsize(a->top) > 3)
+	{
+		move_min_to_top(a);
+		pb(a, b);
+		pushed++;
+	}
+	sort_three(a);
+	while (pushed--)
+		pa(a, b);
+}

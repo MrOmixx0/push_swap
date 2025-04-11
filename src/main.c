@@ -58,8 +58,8 @@ static void	dispatch_sort(t_stack *a, t_stack *b)
 		sort_two(a);
 	else if (size <= 3)
 		sort_three(a);
-	else if (size <= 20)
-		sort_medium(a, b);
+	else if (size <= 5)
+		sort_five(a, b);
 	else
 		radix_sort(a, b);
 	ft_lstclear(&a->top, free);

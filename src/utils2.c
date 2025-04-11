@@ -66,7 +66,7 @@ int	find_min_position(t_stack *a)
 }
 
 // Move minimum element to top of stack efficiently
-static void	move_min_to_top(t_stack *a)
+void	move_min_to_top(t_stack *a)
 {
 	int	min_pos;
 	int	size;
@@ -89,7 +89,7 @@ static void	move_min_to_top(t_stack *a)
 }
 
 // Find position of the maximum value in stack
-static int	find_max_position(t_stack *stack)
+int	find_max_position(t_stack *stack)
 {
 	t_list	*curr;
 	int		max_val;
@@ -116,7 +116,7 @@ static int	find_max_position(t_stack *stack)
 }
 
 // Move the maximum element to top of stack B efficiently
-static void	move_max_to_top_b(t_stack *b)
+void	move_max_to_top_b(t_stack *b)
 {
 	int	max_pos;
 	int	size;
@@ -135,7 +135,7 @@ static void	move_max_to_top_b(t_stack *b)
 	}
 }
 
-// Sort a medium-sized stack (4-20 elements)
+//Sort a medium-sized stack (4-20 elements)
 void	sort_medium(t_stack *a, t_stack *b)
 {
 	int size;

@@ -100,10 +100,7 @@ int	parse_args(t_stack *a, char **args, int *min_val)
 		*content = (int)num;
 		node = ft_lstnew(content);
 		if (!node)
-		{
-			free(content);
-			return (-1);
-		}
+			return (free(content), -1);
 		ft_lstadd_back(&a->top, node);
 		if (*content < *min_val)
 			*min_val = *content;
