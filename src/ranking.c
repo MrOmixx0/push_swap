@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-// Get array of values from stack
 static int	*stack_to_array(t_stack *stack, int size)
 {
 	t_list	*current;
@@ -32,7 +31,6 @@ static int	*stack_to_array(t_stack *stack, int size)
 	return (arr);
 }
 
-// Simple insertion sort for the array
 static void	insertion_sort(int *arr, int size)
 {
 	int	i;
@@ -54,7 +52,6 @@ static void	insertion_sort(int *arr, int size)
 	}
 }
 
-// Find position of a value in sorted array
 static int	find_position(int *sorted, int size, int value)
 {
 	int	i;
@@ -69,7 +66,6 @@ static int	find_position(int *sorted, int size, int value)
 	return (-1);
 }
 
-// Replace stack values with their ranks (0 to size-1)
 void	normalize_stack(t_stack *stack)
 {
 	t_list	*current;
