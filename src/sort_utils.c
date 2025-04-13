@@ -12,6 +12,25 @@
 
 #include "push_swap.h"
 
+void	move_min_to_top(t_stack *a)
+{
+	int	min_pos;
+	int	size;
+
+	min_pos = find_min_position(a);
+	size = ft_lstsize(a->top);
+	if (min_pos <= size / 2)
+	{
+		while (min_pos-- > 0)
+			ra(a);
+	}
+	else
+	{
+		while (min_pos++ < size)
+			rra(a);
+	}
+}
+
 void	sort_two(t_stack *a)
 {
 	if (*(int *)(a->top->content) > *(int *)(a->top->next->content))

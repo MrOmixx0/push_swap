@@ -15,12 +15,14 @@
 void	sa(t_stack *a)
 {
 	int	temp;
+	int	temp_2;
 
 	if (!a->top || !a->top->next)
 		return ;
 	temp = pop(a);
-	push(a, pop(a));
+	temp_2 = pop(a);
 	push(a, temp);
+	push(a, temp_2);
 	write(1, "sa\n", 3);
 }
 

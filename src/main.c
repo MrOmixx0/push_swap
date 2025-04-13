@@ -28,8 +28,6 @@ static char	*join_args(int argc, char **argv)
 	char	*temp;
 	int		i;
 
-	if (argc < 2)
-		return (NULL);
 	joined = ft_strdup(argv[1]);
 	if (!joined)
 		return (NULL);
